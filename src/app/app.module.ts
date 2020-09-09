@@ -14,6 +14,10 @@ import { FooterComponent } from './components/common/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { DetailsComponent } from './components/match/details/details.component';
 
+
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +35,7 @@ import { DetailsComponent } from './components/match/details/details.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

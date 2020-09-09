@@ -49,6 +49,14 @@ export class RestService {
     )
   }
 
+  getTeamStats(team) {
+    return this.http.get(this.END_POINT + `/teams-stats?team=${team}`)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
 
 
 

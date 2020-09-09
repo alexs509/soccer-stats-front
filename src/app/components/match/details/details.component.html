@@ -1,1 +1,70 @@
-<p>details works!</p>
+<div class="container">
+    <a [routerLink]="[ '/' ]">Retour page d'accueil</a>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div *ngIf="headtohead">
+                <h2>{{ headtohead[0].teams.home.name }} - {{ headtohead[0].teams.away.name }}</h2>
+                <img width="130px" src="{{ headtohead[0].teams.home.logo }}">
+                <img width="130px" src="{{ headtohead[0].teams.away.logo }}">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Nombre de but equipe à domicile</h3>
+            <div class="chart_performance">
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="goal_team1"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                    [showDataLabel]="showDataLabel">
+                </ngx-charts-bar-vertical>
+            </div>
+        </div>
+    </div><br><br>
+
+    <div *ngIf="headtohead" class="row">
+        <h3>Comparaison nombre de victoire depuis début de la saison</h3>
+        <div class="col-md-5">
+            <h4>{{ headtohead[0].teams.home.name }}</h4>
+            <div class="chart_performance">
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="stats_team1"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                    [showDataLabel]="showDataLabel">
+                </ngx-charts-bar-vertical>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+            <h4>{{ headtohead[0].teams.away.name }}</h4>
+            <div class="chart_performance">
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="stats_team2"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                    [showDataLabel]="showDataLabel">
+                </ngx-charts-bar-vertical>
+            </div>
+        </div>
+    </div><br><br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Pourcentage de but par match</h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <ngx-charts-gauge [view]="view" [scheme]="colorScheme" [results]="avg_goal_team1" [legend]=false
+                        min=14 max=40 units="but" smallSegments=4>
+                    </ngx-charts-gauge>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <ngx-charts-gauge [view]="view" [scheme]="colorScheme" [results]="avg_goal_team2" [legend]=false
+                        min=14 max=40 units="but" smallSegments=4>
+                    </ngx-charts-gauge>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
