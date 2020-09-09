@@ -8,7 +8,7 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class RestService {
 
-  END_POINT: string = "http://localhost:5000";
+  END_POINT: string = "http://localhost:5000/api/v1.0";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export class RestService {
   }
 
   getNextMatch() {
-    return this.http.get(this.END_POINT + `/fixtures?league=61&season=2020`)
+    return this.http.get(this.END_POINT + `/next-match`)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
