@@ -8,3 +8,11 @@ ul.nav {
         &.nav-link { display: block; padding: 1.0rem 1rem; }
     }
 }
+
+.nav .logo {
+    left: 0;
+    top: -5px;
+    position: absolute;
+    font-weight: bold;
+    font-size: 23px;
+}
