@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   getNextMatch(): void {
     this.rest.getNextMatch().subscribe((resp: any) => {
       this.dispatchNextAndEndMatch(resp.response);
-      console.log(resp.response);
+      //console.log(resp.response);
     })
   }
 

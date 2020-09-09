@@ -41,6 +41,15 @@ export class RestService {
   }
 
 
+  getHead(team1, team2) {
+    return this.http.get(this.END_POINT + `/headtohead?team1=${team1}&team2=${team2}`)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
+
 
 
 }
