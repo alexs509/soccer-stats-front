@@ -30,6 +30,7 @@ export class DetailsComponent implements OnInit {
    stats_team2 = [];
    avg_goal_team1 = [];
    avg_goal_team2 = [];
+   ranking;
 
   colorScheme = {
     domain: ['#779A79']
@@ -43,6 +44,7 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getRanking();
     this.getDetailsTeam();
     this.getTeamStat();
   }
@@ -51,7 +53,6 @@ export class DetailsComponent implements OnInit {
     this.rest.getHead(this.team1, this.team2).subscribe((resp: any) => {
       this.headtohead = resp.response;
       this.goal_team = this.sortMatchByDate(resp.response)
-      console.log(this.goal_team);
     })
   }
 
@@ -70,6 +71,13 @@ export class DetailsComponent implements OnInit {
       this.stats_team2 = [{ name: "victoire", value: resp.response.fixtures.wins.total }, { name: "défaite", value: resp.response.fixtures.loses.total }];  
       this.avg_goal_team2 = [{name: "Nb but", value: resp.response.goals.against.average.total}]
   })
+  }
+
+  getRanking() {
+    this.rest.getRanking().subscribe((resp: any) => {
+      this.ranking = resp.response[0].league.standings[0];
+      console.log(this.ranking)
+    })
   }
 
 }

@@ -57,7 +57,13 @@ export class RestService {
     )
   }
 
-
+  getRanking() {
+    return this.http.get(this.END_POINT + `/ranking`)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
 
 
 }
