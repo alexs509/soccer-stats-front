@@ -22,11 +22,10 @@ export class DetailsComponent implements OnInit {
   yAxisLabel = 'Nombre de but';
   showDataLabel = true;
 
-  view: any[] = [700, 400];
+  view: any[] = [600, 300];
 
 
-   goal_team1 = [];
-   goal_team2 = [];
+   goal_team = [];
    stats_team1 = [];
    stats_team2 = [];
    avg_goal_team1 = [];
@@ -51,14 +50,15 @@ export class DetailsComponent implements OnInit {
   getDetailsTeam() {
     this.rest.getHead(this.team1, this.team2).subscribe((resp: any) => {
       this.headtohead = resp.response;
-      let cpt = 0;
-      (resp.response).forEach(element => {
-        if(cpt <= 7) {
-        this.goal_team1 = [...this.goal_team1, {"name": "n"+cpt + " : "+element.teams.away.name + " - " + element.teams.home.name , "value": element.goals.away ? element.goals.away : 0}];
-        }
-        cpt++;
-      });
+      this.goal_team = this.sortMatchByDate(resp.response)
+      console.log(this.goal_team);
     })
+  }
+
+  sortMatchByDate(match: any): Array<any> {
+    let sortMatch: any;
+    sortMatch = match.sort((a,b) => { return +(new Date(b.fixture.date)) - +(new Date(a.fixture.date)) })
+    return sortMatch;
   }
 
   getTeamStat() {
