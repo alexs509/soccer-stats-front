@@ -9,17 +9,20 @@ import { RestService } from 'src/app/services/rest/rest.service';
 export class HomeComponent implements OnInit {
   nextMatch;
   endMatch;
+  leagues;
 
   constructor(public rest: RestService) { }
 
   ngOnInit(): void {
     this.getNextMatch();
+    this.getAllLeagues();
   }
 
   getNextMatch(): void {
     this.rest.getNextMatch().subscribe((resp: any) => {
       this.dispatchNextAndEndMatch(resp.response);
-      //console.log(resp.response);
+      console.log(resp.response);
+      this.leagues = resp.response;
     })
   }
 
@@ -36,6 +39,12 @@ export class HomeComponent implements OnInit {
     let sortMatch: any;
     sortMatch = match.sort((a,b) => { return +(new Date(a.fixture.date)) - +(new Date(b.fixture.date)) })
     return sortMatch;
+  }
+
+  getAllLeagues(): void {
+    /* this.rest.getLeagues().subscribe((resp: any) => {
+      this.leagues = resp.response
+    }) */
   }
 
 

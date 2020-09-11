@@ -24,7 +24,6 @@ export class DetailsComponent implements OnInit {
 
   view: any[] = [600, 300];
 
-
    goal_team = [];
    stats_team1 = [];
    stats_team2 = [];
@@ -35,8 +34,6 @@ export class DetailsComponent implements OnInit {
   colorScheme = {
     domain: ['#779A79']
   };
-
-
 
   constructor(public route: ActivatedRoute, public rest: RestService) {
     this.team1 = this.route.snapshot.paramMap.get("team1");

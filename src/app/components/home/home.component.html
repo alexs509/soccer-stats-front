@@ -17,40 +17,64 @@
     </div>
     <!-- END 2nd NAV -->
 
-
     <div class="tab-content" id="pills-tabContent">
-
         <!--START end match -->
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <div *ngIf="endMatch" class="row text-center">
-                <div *ngFor="let match of endMatch; let i=index" class="col-md-4">
-                    <div *ngIf="i<20" class="card" style="width: 18rem; margin-bottom: 25px;">
-                        <div class="card-body">
-                            <div class="text-center goals row teams_logo">
-                                <div class="col-md-4"><img src="{{ match.teams.home.logo }}"></div>
-                                <div class="col-md-4"><div style="margin-top: 15px;"> {{ match.goals.away }} - {{ match.goals.home }}</div></div>
-                                <div class="col-md-4"><img src="{{ match.teams.away.logo }}"></div>
-                            </div>
-                            <h5 class="card-title text-center">{{ match.teams.home.name }} - {{ match.teams.away.name }}
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted text-center">
-                                {{ match.fixture.date | date: 'dd/MM/yyyy HH:mm' }} </h6>
-                            <div class="card-text">
-                                <div>Ville : {{ match.fixture.venue.city }}</div>
-                                <div>Stade : {{ match.fixture.venue.name }}</div>
-                            </div>
-                            <div class="text-center">
-                                <!-- <a href="#" class="card-link">Ajouter aux favoris</a> -->
-                                <!-- <a href="#" class="card-link">voir statistiques</a> -->
+
+            <div class="row">
+                <!-- START list of all leagues -->
+                <div class="col-md-2">
+                    <ul class="list-group">
+                        <li class="list-group-item">Bundesliga</li>
+                        <li class="list-group-item">Premiere League</li>
+                        <li class="list-group-item">LaLiga</li>
+                        <li class="list-group-item active">Ligue 1</li>
+                        <li class="list-group-item">Ligue 2</li>
+                        <li class="list-group-item">Serie A</li>
+                        <li class="list-group-item">Eredivisie</li>
+
+                    </ul>
+                </div>
+                <!-- END list of all leagues -->
+
+                <!-- START display end match -->
+                <div class="col-md-10">
+                    <div *ngIf="endMatch" class="row text-center">
+                        <div *ngFor="let match of endMatch; let i=index" class="col-md-4">
+                            <div *ngIf="i<20" class="card" style="width: 18rem; margin-bottom: 25px;">
+                                <div class="card-body">
+                                    <div class="text-center goals row teams_logo">
+                                        <div class="col-md-4"><img src="{{ match.teams.home.logo }}"></div>
+                                        <div class="col-md-4">
+                                            <div style="margin-top: 15px;"> {{ match.goals.away }} -
+                                                {{ match.goals.home }}</div>
+                                        </div>
+                                        <div class="col-md-4"><img src="{{ match.teams.away.logo }}"></div>
+                                    </div>
+                                    <h5 class="card-title text-center">{{ match.teams.home.name }} -
+                                        {{ match.teams.away.name }}
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2 text-muted text-center">
+                                        {{ match.fixture.date | date: 'dd/MM/yyyy HH:mm' }} </h6>
+                                    <div class="card-text">
+                                        <div>Ville : {{ match.fixture.venue.city }}</div>
+                                        <div>Stade : {{ match.fixture.venue.name }}</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <!-- <a href="#" class="card-link">Ajouter aux favoris</a> -->
+                                        <!-- <a href="#" class="card-link">voir statistiques</a> -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- END display end match -->
             </div>
         </div>
         <!--END end match -->
 
-        <!--START next match -->
+        <!--START display next match -->
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div *ngIf="nextMatch" class="row text-center">
                 <div *ngFor="let match of nextMatch; let i=index" class="col-md-4">
@@ -70,16 +94,16 @@
                             </div>
                             <div class="text-center">
                                 <!-- <a href="#" class="card-link">Ajouter aux favoris</a> -->
-                                <a [routerLink]="[ '/details', match.teams.away.id, match.teams.home.id ]" class="card-link">voir statistiques</a>
+                                <a [routerLink]="[ '/details', match.teams.away.id, match.teams.home.id ]"
+                                    class="card-link">voir statistiques</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--END next match -->
+        <!--END display next match -->
     </div>
-
 
 
 </div>

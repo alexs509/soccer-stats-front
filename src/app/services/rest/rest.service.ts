@@ -65,6 +65,14 @@ export class RestService {
     )
   }
 
+  getLeagues() {
+    return this.http.get(this.END_POINT + `/leagues`)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
+
   login(datas) {
     return this.http.post(this.END_POINT + `/connection`, datas, this.httpOptions)
     .pipe(
