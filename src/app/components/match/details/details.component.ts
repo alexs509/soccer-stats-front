@@ -61,6 +61,7 @@ export class DetailsComponent implements OnInit {
 
   getTeamStat() {
     this.rest.getTeamStats(this.team1).subscribe((resp: any) => {
+        console.log(resp.response);
         this.stats_team1 = [{ name: "victoire", value: resp.response.fixtures.wins.total }, { name: "défaite", value: resp.response.fixtures.loses.total }]; 
         this.avg_goal_team1 = [{name: "Nb but", value: resp.response.goals.against.average.total}]
     })
@@ -73,7 +74,6 @@ export class DetailsComponent implements OnInit {
   getRanking() {
     this.rest.getRanking().subscribe((resp: any) => {
       this.ranking = resp.response[0].league.standings[0];
-      console.log(this.ranking)
     })
   }
 
