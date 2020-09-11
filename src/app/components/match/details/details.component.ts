@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -17,7 +18,7 @@ export class DetailsComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Match';
+  xAxisLabel = 'Résultat';
   showYAxisLabel = true;
   yAxisLabel = 'Nombre de but';
   showDataLabel = true;
@@ -30,10 +31,15 @@ export class DetailsComponent implements OnInit {
    avg_goal_team1 = [];
    avg_goal_team2 = [];
    ranking;
+   comparegoals= [];
 
   colorScheme = {
     domain: ['#779A79']
   };
+  colorScheme2 = {
+    domain: ['green', '#A10A28']
+  };
+  view2: any[] = [700, 200];
 
   constructor(public route: ActivatedRoute, public rest: RestService) {
     this.team1 = this.route.snapshot.paramMap.get("team1");
@@ -60,15 +66,32 @@ export class DetailsComponent implements OnInit {
   }
 
   getTeamStat() {
-    this.rest.getTeamStats(this.team1).subscribe((resp: any) => {
-        console.log(resp.response);
-        this.stats_team1 = [{ name: "victoire", value: resp.response.fixtures.wins.total }, { name: "défaite", value: resp.response.fixtures.loses.total }]; 
-        this.avg_goal_team1 = [{name: "Nb but", value: resp.response.goals.against.average.total}]
+    forkJoin(
+      this.rest.getTeamStats(this.team1),
+      this.rest.getTeamStats(this.team2)
+    ).subscribe(([resp1, resp2] : any)=> {
+      this.stats_team1 = [{ name: "victoire", value: resp1.response.fixtures.wins.total }, { name: "défaite", value: resp1.response.fixtures.loses.total }]; 
+      this.avg_goal_team1 = [{name: "Nb but", value: resp1.response.goals.for.average.total}]
+      console.log(resp1.response)
+      this.comparegoals = [...this.comparegoals, {name: resp1.response.team.name + " - marquer", value: resp1.response.goals.for.total.total ? resp1.response.goals.for.total.total : 0},
+      {name: resp1.response.team.name + " - encaisser", value: resp1.response.goals.against.total.total ? resp1.response.goals.against.total.total : 0}];
+      console.log(this.comparegoals);
+      console.log(resp1.response.goals.for.total)
+      console.log(resp1.response.goals.for.total.total)
+
+      this.stats_team2 = [{ name: "victoire", value: resp2.response.fixtures.wins.total }, { name: "défaite", value: resp2.response.fixtures.loses.total }];  
+      this.avg_goal_team2 = [{name: "Nb but", value: resp2.response.goals.for.average.total}]
+      this.comparegoals = [...this.comparegoals, {name: resp2.response.team.name + " - marquer", value: resp2.response.goals.for.total.total ? resp2.response.goals.for.total.total : 0},
+      {name: resp2.response.team.name + " - encaisser", value: resp2.response.goals.against.total.total ? resp2.response.goals.against.total.total : 0}];
+    });
+    /* this.rest.getTeamStats(this.team1).subscribe((resp: any) => {
+      console.log(resp.response);
+        
     })
     this.rest.getTeamStats(this.team2).subscribe((resp: any) => {
-      this.stats_team2 = [{ name: "victoire", value: resp.response.fixtures.wins.total }, { name: "défaite", value: resp.response.fixtures.loses.total }];  
-      this.avg_goal_team2 = [{name: "Nb but", value: resp.response.goals.against.average.total}]
-  })
+      
+      console.log(this.comparegoals);
+    }) */
   }
 
   getRanking() {
