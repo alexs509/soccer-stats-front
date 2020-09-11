@@ -66,7 +66,7 @@ export class RestService {
   }
 
   login(datas) {
-    return this.http.post(this.END_POINT + `/connection`, datas)
+    return this.http.post(this.END_POINT + `/connection`, datas, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -74,7 +74,7 @@ export class RestService {
   }
 
   register(datas) {
-    return this.http.post(this.END_POINT + `/inscription`, datas)
+    return this.http.post(this.END_POINT + `/inscription`, datas, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.errorHandl)

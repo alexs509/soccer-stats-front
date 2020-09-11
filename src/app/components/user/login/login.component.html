@@ -1,1 +1,28 @@
-<p>login works!</p>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 style="cursor: pointer;" class="active"> Connexion </h2>
+      <h2 style="cursor: pointer;" [routerLink]="[ '/register' ]" class="inactive underlineHover">Inscription </h2>
+  
+      <!-- Title -->
+      <div class="fadeIn first">
+       <h4>Se connecter</h4>
+      </div>
+  
+      <!-- Login Form -->
+        <input type="text" id="login" class="fadeIn second" [(ngModel)]="formLogin.username" placeholder="nom d'utilisateur">
+        <input type="password" id="password" class="fadeIn third" [(ngModel)]="formLogin.password" placeholder="mot de passe">
+        <input (click)="setLogin()" type="submit" class="fadeIn fourth" value="Connexion">
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Mot de passe oublier?</a>
+      </div>
+  
+    </div>
+    <br>
+      <div *ngIf="error" class="alert alert-info" role="alert">
+        Erreur ! Veuillez remplir le formulaire complètement.
+        Si le probleme persiste contacter un administrateur.
+      </div>
+  </div>

@@ -1,1 +1,29 @@
-<p>register works!</p>
+<div class="wrapper fadeInDown">
+    <div *ngIf="formActive" id="formContent">
+      
+      <h2 style="cursor: pointer;" [routerLink]="[ '/login' ]" class="inactive underlineHover"> Connexion </h2>
+      <h2 style="cursor: pointer;" class="active">Inscription </h2>
+  
+      <div class="fadeIn first">
+       <h4>Formulaire d'inscription</h4>
+      </div>
+  
+        <input type="text" id="login" class="fadeIn second" [(ngModel)]="formRegister.username" placeholder="nom d'utilisateur">
+        <input type="password" id="password" class="fadeIn third" [(ngModel)]="formRegister.password" placeholder="mot de passe">
+        <input (click)="setRegister()" type="submit" class="fadeIn fourth" value="S'inscrire">
+  
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Mot de passe oublier?</a>
+      </div>
+  
+    </div><br>
+    <div *ngIf="!formActive" class="alert alert-success text-center" role="alert">
+        Inscription réalisée avec succèes ! <br>
+        Bienvenue chez SoccerStats <br>
+        Vous faites maintenant partie de l'équipe SoccerStats ! 
+      </div>
+      <div *ngIf="error" class="alert alert-info" role="alert">
+        Erreur ! Veuillez remplir le formulaire complètement.
+        Si le probleme persiste contacter un administrateur.
+      </div>
+  </div>
